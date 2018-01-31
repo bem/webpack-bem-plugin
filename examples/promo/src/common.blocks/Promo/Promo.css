@@ -1,0 +1,24 @@
+.Promo
+{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin: 25% 0;
+}
+
+.Promo-Logo
+{
+    display: flex;
+    align-items: center;
+}
+
+.Promo-LogoSuffix
+{
+    font-size: 23px;
+    margin-left: 20px;
+}
+
+.Promo-Button
+{
+    margin-top: 20px;
+}
