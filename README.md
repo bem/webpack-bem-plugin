@@ -5,7 +5,7 @@ Simple steps to use [BEM](https://en.bem.info/methodology/quick-start/) in your 
 1. Write components as [bem-react-core](https://github.com/bem/bem-react-core) declarations
 2. Use [bem-import-notation](https://github.com/bem/bem-sdk/tree/master/packages/import-notation#notation) to `import` or `require` components
 3. Define project structure in `bemrc` config file
-4. Build project using [webpack](https://github.com/webpack/webpack) and **[Webpack-BEM-plugin](https://github.com/bem/webpack-bem-plugin)**
+4. Build project using [webpack](https://github.com/webpack/webpack) and **Webpack-BEM-plugin**
 5. Enjoy :wink:
 
 ## Examples
@@ -15,7 +15,7 @@ Simple steps to use [BEM](https://en.bem.info/methodology/quick-start/) in your 
 Each example has its `public/*.html`.
 
 * Char table ([source](https://github.com/bem/webpack-bem-plugin/tree/master/examples/char-table)) `js` `no-sets` `no-babel`
-* Few components ([source](https://github.com/bem/webpack-bem-plugin/tree/master/examples/few-componetns)) `js/css` `sets` `babel`
+* Few components ([source](https://github.com/bem/webpack-bem-plugin/tree/master/examples/few-components)) `js/css` `sets` `babel`
 * Promo ([source](https://github.com/bem/webpack-bem-plugin/tree/master/examples/promo)) `js/css` `sets` `library` `babel`
 
 ## Plugin options
@@ -33,7 +33,7 @@ Each example has its `public/*.html`.
 ## Known issues
 
 * [Small tests](https://github.com/bem/webpack-bem-plugin/issues/3)
-* [Flat](https://en.bem.info/methodology/filestructure/#flat)-scheme [is not supported](https://github.com/bem/webpack-bem-plugin/issues/6))
+* [Flat](https://en.bem.info/methodology/filestructure/#flat)-scheme [is not supported](https://github.com/bem/webpack-bem-plugin/issues/6)
 * [No windows support](https://github.com/bem/webpack-bem-plugin/issues/4)
 * [No i18n support](https://github.com/bem/webpack-bem-plugin/issues/7)
 
