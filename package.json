@@ -1,0 +1,39 @@
+{
+  "name": "webpack-bem-plugin",
+  "version": "0.0.1",
+  "description": "Webpack plugin to build BEM-projects",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "build-examples": "webpack --config examples/char-table/webpack.conf.js && webpack --config examples/few-components/webpack.conf.js && webpack --config examples/promo/webpack.conf.js"
+  },
+  "keywords": [
+    "bem",
+    "react",
+    "webpack"
+  ],
+  "author": "Vitaly Kosenko <vitaly.kosenko@gmail.com>",
+  "license": "MPL-2.0",
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "bem-react-core": "^1.0.0-rc.8",
+    "css-loader": "^0.28.9",
+    "jest": "^22.1.4",
+    "prop-types": "^15.6.0",
+    "style-loader": "^0.20.1",
+    "webpack": "^3.11.0"
+  },
+  "dependencies": {
+    "@bem/sdk.cell": "^0.2.4",
+    "@bem/sdk.config": "0.0.4",
+    "@bem/sdk.import-notation": "0.0.4",
+    "@bem/sdk.naming.cell.stringify": "0.0.7",
+    "@bem/sdk.naming.entity": "^0.2.4",
+    "@bem/sdk.naming.entity.parse": "^0.2.4",
+    "@bem/sdk.naming.presets": "0.0.7"
+  }
+}

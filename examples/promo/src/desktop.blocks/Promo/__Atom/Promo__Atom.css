@@ -1,0 +1,64 @@
+.Promo
+{
+    position: relative;
+}
+
+.Promo-Atom
+{
+    z-index: -1;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 150px;
+    height: 150px;
+    margin-left: -75px;
+    margin-top: -75px;
+}
+
+.Promo-Atom::before,
+.Promo-Atom::after
+{
+    position: absolute;
+    content: '';
+    border-radius: 50%;
+    animation: rotation 1s infinite alternate;
+}
+
+.Promo-Atom::before
+{
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(#66d1ee, transparent);
+}
+
+.Promo-Atom::after
+{
+    top: 2px;
+    right: 2px;
+    bottom: 2px;
+    left: 2px;
+    background-color: white;
+}
+
+.Promo-Atom_n_1
+{
+    transform: rotate(-30deg);
+}
+
+.Promo-Atom_n_2
+{
+    transform: rotate(30deg);
+}
+
+.Promo-Atom_n_3
+{
+    transform: rotate(90deg);
+}
+
+@keyframes rotation {
+    to {
+        transform: rotate(360deg) scaleX(0.2);
+    }
+}
