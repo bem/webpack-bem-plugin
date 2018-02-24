@@ -2,6 +2,7 @@ import React from 'react';
 
 import { Bem, decl } from 'bem-react-core';
 
+/* eslint-disable-next-line no-unused-vars */
 import PromoAtom from 'e:Atom';
 
 export default decl({

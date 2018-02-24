@@ -31,7 +31,7 @@ class BemReactWebpackPlugin {
 
             // adding variable into output.filename
             compilation.mainTemplate.plugin(
-                "asset-path",
+                'asset-path',
                 path => path.replace(REGEXP_SET_NAME, self.config.getSet(setIndex))
             );
 
