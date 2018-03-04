@@ -71,6 +71,6 @@ module.exports = {
             const error = getWebpackError(err, stats);
 
             error ? reject(error) : resolve();
-        })
+        });
     })
 };

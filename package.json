@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
+    "lint": "eslint {src,examples,test}/** index.js",
     "build-examples": "webpack --config examples/char-table/webpack.conf.js && webpack --config examples/few-components/webpack.conf.js && webpack --config examples/promo/webpack.conf.js"
   },
   "keywords": [
@@ -22,6 +23,8 @@
     "babel-preset-react": "^6.24.1",
     "bem-react-core": "^1.0.0-rc.8",
     "css-loader": "^0.28.9",
+    "eslint": "^4.18.1",
+    "eslint-plugin-react": "^7.7.0",
     "jest": "^22.1.4",
     "prop-types": "^15.6.0",
     "style-loader": "^0.20.1",
@@ -35,5 +38,6 @@
     "@bem/sdk.naming.entity": "^0.2.4",
     "@bem/sdk.naming.entity.parse": "^0.2.4",
     "@bem/sdk.naming.presets": "0.0.7"
-  }
+  },
+  "eslintIgnore": ["examples/*/public/*", "test/e2e/project/**"]
 }

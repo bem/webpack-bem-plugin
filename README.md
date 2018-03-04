@@ -32,7 +32,6 @@ Each example has its `public/*.html`.
 
 ## Known issues
 
-* [Small tests](https://github.com/bem/webpack-bem-plugin/issues/3)
 * [Flat](https://en.bem.info/methodology/filestructure/#flat)-scheme [is not supported](https://github.com/bem/webpack-bem-plugin/issues/6)
 * [No windows support](https://github.com/bem/webpack-bem-plugin/issues/4)
 * [No i18n support](https://github.com/bem/webpack-bem-plugin/issues/7)

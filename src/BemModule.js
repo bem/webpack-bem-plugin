@@ -37,7 +37,6 @@ class BemModule extends WebpackNormalModule {
     doBuild(options, compilation, resolver, fs, callback) {
         const code = codeGenerator(this.bemDeps);
 
-        // extract-text-plugin может "выгрызать" код
         this._source = new WebpackRawSource(code ? `module.exports = (\n${code}\n);` : '');
 
         return callback();
