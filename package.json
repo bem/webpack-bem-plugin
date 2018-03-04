@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "lint": "eslint {src,examples,test}/** index.js",
+    "lint": "eslint {src,examples,test}/**/*.js index.js",
     "build-examples": "webpack --config examples/char-table/webpack.conf.js && webpack --config examples/few-components/webpack.conf.js && webpack --config examples/promo/webpack.conf.js"
   },
   "keywords": [
