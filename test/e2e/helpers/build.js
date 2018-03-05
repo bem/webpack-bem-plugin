@@ -37,9 +37,9 @@ module.exports = {
                 string = items.pop();
 
                 if (fileContent.includes(string)) {
-                    invert && errors.push(`${setName} contains "${string}"`);
+                    invert && errors.push(`${file} should not contain "${string}"`);
                 } else {
-                    !invert && errors.push(`${setName} doesn't contain "${string}"`);
+                    !invert && errors.push(`${file} should contain "${string}"`);
                 }
             });
         });
@@ -47,5 +47,7 @@ module.exports = {
         return new Promise((resolve, reject) => {
             errors.length ? reject(errors.join('\n')) : resolve();
         });
-    }
+    },
+
+    wait: timeout => new Promise(resolve => setTimeout(resolve, timeout))
 };

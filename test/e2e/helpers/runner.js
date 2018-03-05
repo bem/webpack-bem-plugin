@@ -1,6 +1,7 @@
 'use strict';
 
 const webpack = require('webpack');
+const webpackWatchOptions = { aggregateTimeout: 1 };
 
 const WebpackBemPlugin = require('../../../index');
 
@@ -45,25 +46,32 @@ function getWebpackError(err, stats) {
  */
 module.exports = {
     watch: pluginOptions => {
-        let next;
-
-        const promise = new Promise(( resolve, reject ) => {
-            next = { resolve, reject };
-        });
-
-        let instance = createWebpackInstance(pluginOptions).watch({}, (err, stats) => {
-            const error = getWebpackError(err, stats);
-
-            error ? next.reject(error) : next.resolve();
-        });
+        let hook;
+        let instance;
 
         return {
-            promise,
-            afterChanges: () => new Promise((resolve, reject) => {
-                next = { resolve, reject };
+            build: () => new Promise(( resolve, reject ) => {
+                hook = { resolve, reject };
+                instance = createWebpackInstance(pluginOptions).watch(webpackWatchOptions, watchCallback);
             }),
-            close: () => new Promise(resolve => instance.close(resolve))
+            watchNext: action => new Promise((resolve, reject) => {
+                hook = { resolve, reject };
+
+                // do some action to trigger rebuild
+                setTimeout(action, 100);
+            }),
+            close: () => new Promise(resolve => {
+                hook = null;
+
+                instance.close(resolve);
+            })
         };
+
+        function watchCallback(err, stats) {
+            const error = getWebpackError(err, stats);
+
+            error ? hook.reject(error) : hook.resolve();
+        }
     },
 
     run: pluginOptions => new Promise((resolve, reject) => {
