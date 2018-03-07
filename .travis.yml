@@ -1,0 +1,14 @@
+language: node_js
+
+node_js: 8
+
+notifications:
+  email: false
+
+before_script:
+  - bash travis-commits.sh
+
+script:
+  - npm run lint
+  - npm run build-examples
+  - npm test

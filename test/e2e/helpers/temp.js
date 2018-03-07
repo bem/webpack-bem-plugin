@@ -11,10 +11,14 @@ module.exports = {
     mark: TEMP_MARK,
 
     add: function() {
-        fs.createWriteStream(TEMP_FILE_PATH).end(TEMP_FILE_CONTENT);
+        fs.writeFileSync(TEMP_FILE_PATH, TEMP_FILE_CONTENT);
     },
 
     remove: function() {
-        fs.existsSync(TEMP_FILE_PATH) && fs.unlinkSync(TEMP_FILE_PATH);
+        fs.unlinkSync(TEMP_FILE_PATH);
+    },
+
+    removeIfExists: function() {
+        fs.existsSync(TEMP_FILE_PATH) && this.remove();
     }
 };

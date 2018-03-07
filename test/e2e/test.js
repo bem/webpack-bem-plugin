@@ -53,9 +53,9 @@ describe('e2e', () => {
             let instance;
 
             afterEach(() => {
-                temp.remove();
+                temp.removeIfExists();
 
-                return instance.close();
+                instance && instance.close();
             });
 
             it('should handle only adding', () => {
@@ -68,7 +68,7 @@ describe('e2e', () => {
 
                 instance = runner.watch({ self });
 
-                return instance.promise
+                return instance.build()
                     .then(() =>
                         build.test({
                             main: [
@@ -77,11 +77,7 @@ describe('e2e', () => {
                             ]
                         })
                     )
-                    .then(() => {
-                        temp.add();
-
-                        return instance.afterChanges();
-                    })
+                    .then(() => instance.watchNext(temp.add))
                     .then(() =>
                         build.test({
                             main: [
@@ -92,7 +88,7 @@ describe('e2e', () => {
                     );
             });
 
-            it('should handle adding and removing', () => {
+            it('should handle removing', () => {
                 const self = {
                     levels: [
                         { layer: 'common' },
@@ -100,14 +96,11 @@ describe('e2e', () => {
                     ]
                 };
 
+                temp.add();
+
                 instance = runner.watch({ self });
 
-                return instance.promise
-                    .then(() => {
-                        temp.add();
-
-                        return instance.afterChanges();
-                    })
+                return instance.build()
                     .then(() =>
                         build.test({
                             main: [
@@ -116,11 +109,10 @@ describe('e2e', () => {
                             ]
                         })
                     )
-                    .then(() => {
-                        temp.remove();
-
-                        return instance.afterChanges();
-                    })
+                    .then(() => instance.watchNext(temp.remove))
+                    .then(() =>
+                        build.wait(1000) // removing is worse detected
+                    )
                     .then(() =>
                         build.test({
                             main: [
