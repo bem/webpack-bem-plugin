@@ -26,6 +26,7 @@ class BemPluginConfig {
         this.options = {
             techs: ['js'],
             techMap: {},
+            plugins: () => [],
             ...options
         };
 
@@ -75,6 +76,10 @@ class BemPluginConfig {
 
     forEachAdditionalSet(callback) {
         for (let i = 1, len = this.sets.length; i < len; i++) callback(i);
+    }
+
+    applyPlugins(compiler) {
+        compiler.apply(...this.getOption('plugins')());
     }
 
     static writeSetTo(compiler, setIndex) {
