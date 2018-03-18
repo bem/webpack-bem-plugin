@@ -25,6 +25,7 @@ Each example has its `public/*.html`.
 | **`[techs]`** | `{String[]}` | List of techs in project to build. Default is `['js']` |
 | **`[techMap]`** | `{Object}` | Maps techs to actual file extensions. Tech with no mapping treated as file extension as is. Example of custom mapping: `{ js: 'react.js' }` |
 | **`[libs]`** | `{Object}` | Stores inline `bemrc` configurations for some libraries. Use when a library has not its `bemrc` file and adding it in library codebase is complicated |
+| **`[plugins]`** | `{Function}` | Callback returns 3rd party plugins with no "child-compiler" support. Example is [extract-text-webpack-plugin](https://github.com/webpack-contrib/extract-text-webpack-plugin) |
 
 ## Run tests
 
