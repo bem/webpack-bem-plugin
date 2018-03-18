@@ -14,9 +14,9 @@ Simple steps to use [BEM](https://en.bem.info/methodology/quick-start/) in your 
 
 Each example has its `public/*.html`.
 
-* Char table ([source](https://github.com/bem/webpack-bem-plugin/tree/master/examples/char-table)) `js` `no-sets` `no-babel`
-* Few components ([source](https://github.com/bem/webpack-bem-plugin/tree/master/examples/few-components)) `js/css` `sets` `babel`
-* Promo ([source](https://github.com/bem/webpack-bem-plugin/tree/master/examples/promo)) `js/css` `sets` `library` `babel`
+* Char table ([source](examples/char-table)) `js` `no-sets` `no-babel`
+* Few components ([source](examples/few-components)) `js/css` `sets` `babel`
+* Promo ([source](examples/promo)) `js/css` `sets` `library` `plugins` `babel`
 
 ## Plugin options
 

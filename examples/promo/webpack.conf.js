@@ -1,4 +1,5 @@
 const path = require('path');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const WebpackBemPlugin = require('../../index');
 
 function resolver(relativePath) {
@@ -26,14 +27,20 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                use: ['style-loader', 'css-loader']
+                use: ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: 'css-loader'
+                })
             }
         ]
     },
     plugins: [
         new WebpackBemPlugin({
             techs: ['js', 'css'],
-            techMap: { js: 'react.js' }
+            techMap: { js: 'react.js' },
+            plugins: () => [
+                new ExtractTextPlugin('[setName].bundle.css')
+            ]
         })
     ],
     context: resolver('src')
