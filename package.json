@@ -40,5 +40,8 @@
     "@bem/sdk.naming.entity.parse": "^0.2.4",
     "@bem/sdk.naming.presets": "0.0.7"
   },
+  "peerDependencies": {
+    "webpack": "^3.11.0"
+  },
   "eslintIgnore": ["examples/*/public/*", "test/e2e/project/**"]
 }
