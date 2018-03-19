@@ -9,10 +9,16 @@ describe('BemPluginConfig', () => {
     const sdkConfigSimplestStub = () => ({ getSync: () => ({}) });
     const compilerStub = { context: '/foo/bar' };
 
-    describe('compiler', () => {
-        it('should pass compiler context to sdk.config', () => {
-            BemConfig.mockImplementation(sdkConfigSimplestStub);
+    afterEach(() => {
+        BemConfig.mockReset();
+    });
 
+    describe('compiler', () => {
+        beforeEach(() => {
+            BemConfig.mockImplementation(sdkConfigSimplestStub);
+        });
+
+        it('should pass compiler context to sdk.config', () => {
             new BemPluginConfig(compilerStub);
 
             expect(BemConfig).toHaveBeenCalledWith({ cwd: compilerStub.context });
@@ -26,6 +32,15 @@ describe('BemPluginConfig', () => {
             BemPluginConfig.writeSetTo(compiler, 5);
 
             expect(BemPluginConfig.readSetFrom(compiler)).toBe(5);
+        });
+
+        it('should do apply plugins', () => {
+            const config = new BemPluginConfig(compilerStub, { plugins: () => ['foo', 'bar'] });
+            const applyFn = jest.fn();
+
+            config.applyPlugins({ apply: applyFn });
+
+            expect(applyFn).toHaveBeenCalledWith('foo', 'bar');
         });
     });
 
@@ -59,6 +74,20 @@ describe('BemPluginConfig', () => {
                 const config = new BemPluginConfig(compilerStub, { techMap: { js: 'react.js' } });
 
                 expect(config.getOption('techMap')).toEqual({ js: 'react.js' });
+            });
+        });
+
+        describe('plugins', () => {
+            it('should have default value', () => {
+                const config = new BemPluginConfig(compilerStub);
+
+                expect(config.getOption('plugins')()).toEqual([]);
+            });
+
+            it('should be overridable', () => {
+                const config = new BemPluginConfig(compilerStub, { plugins: () => ['foo', 'bar'] });
+
+                expect(config.getOption('plugins')()).toEqual(['foo', 'bar']);
             });
         });
 

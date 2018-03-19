@@ -50,6 +50,9 @@ class BemReactWebpackPlugin {
     prepareParentCompiler(compiler) {
         BemPluginConfig.writeSetTo(compiler, 0);
 
+        // applying 3rd party plugins
+        this.config.applyPlugins(compiler);
+
         this.handleRequire(compiler);
     }
 
@@ -59,12 +62,15 @@ class BemReactWebpackPlugin {
         const parentCompiler = compilation.compiler;
         const childCompiler = compilation.createChildCompiler(`bem-webpack-compiler for set ${set}`);
 
-        // TODO: shallow copies is not safe enough. Rewrite in case of errors
+        BemPluginConfig.writeSetTo(childCompiler, setIndex);
+
+        // TODO: shallow copies are not safe enough. Rewrite in case of errors
         // examples of make-plugins: *-entry-plugin
         // examples of compile-plugins: externals-plugin
         copyPlugins(parentCompiler, childCompiler, ['make', 'compile']);
 
-        BemPluginConfig.writeSetTo(childCompiler, setIndex);
+        // applying 3rd party plugins
+        this.config.applyPlugins(childCompiler);
 
         return childCompiler;
     }
