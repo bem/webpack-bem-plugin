@@ -26,6 +26,7 @@ class BemReactWebpackPlugin {
 
         compiler.plugin('compilation', function(compilation, params) {
             const setIndex = BemPluginConfig.readSetFrom(compilation.compiler);
+            const deferred = [];
 
             if (typeof setIndex === 'undefined') return;
 
@@ -35,10 +36,22 @@ class BemReactWebpackPlugin {
                 path => path.replace(REGEXP_SET_NAME, self.config.getSet(setIndex))
             );
 
+            // FIXME: clear deferred at rebuild
+
+            // applying deferred dependency templates
+            compilation.mainTemplate.plugin(
+                'modules',
+                modules => {
+                    deferred.map(d => d());
+
+                    return modules;
+                }
+            );
+
             const normalModuleFactory = params.normalModuleFactory;
 
             compilation.dependencyFactories.set(BemDependency, normalModuleFactory);
-            compilation.dependencyTemplates.set(BemDependency, new BemDependency.Template());
+            compilation.dependencyTemplates.set(BemDependency, new BemDependency.Template(deferred));
 
             normalModuleFactory.apply(
                 new BemModuleFactoryPlugin(self.config, setIndex)

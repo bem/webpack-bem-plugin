@@ -22,6 +22,28 @@ class BemDependency extends WebpackModuleDependency {
     }
 }
 
-BemDependency.Template = WebpackModuleDependencyTemplateAsRequireId;
+BemDependency.Template = class CustomTemplate {
+    constructor(deferred) {
+        this.deferred = deferred;
+    }
+
+    apply(dep, source) {
+        const m = dep.module;
+
+        // FIXME: handle with WebpackMissingModule
+        if (!dep.range || !m) return;
+
+        if (m.shouldInline()) {
+            // do inline as deferred at mainTemplate.plugin("modules")
+            this.deferred.push(() => {
+                source.replace(dep.range[0], dep.range[1] - 1,
+                    `${m._deferredSource.source()} /* from ${m.id} */`);
+            });
+        } else {
+            // do ordinary require
+            source.replace(dep.range[0], dep.range[1] - 1, `__webpack_require__(${JSON.stringify(m.id)})`);
+        }
+    }
+};
 
 module.exports = BemDependency;
