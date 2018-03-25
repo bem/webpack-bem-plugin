@@ -1,7 +1,7 @@
 'use strict';
 
 const WebpackNormalModule = require('webpack/lib/NormalModule');
-const WebpackRawSource = require('webpack-sources').RawSource;
+const WebpackSources = require('webpack-sources');
 const importedFiles = require('./helpers/importedFiles');
 const codeGenerator = require('./generator');
 
@@ -34,12 +34,33 @@ class BemModule extends WebpackNormalModule {
         return false;
     }
 
+    shouldInline() {
+        return this.reasons.length === 1;
+    }
+
     doBuild(options, compilation, resolver, fs, callback) {
         const code = codeGenerator(this.bemDeps);
 
-        this._source = new WebpackRawSource(code ? `module.exports = (\n${code}\n);` : '');
+        this._source = new WebpackSources.RawSource(code ? `(\n${code}\n);` : '');
 
         return callback();
+    }
+
+    source() {
+        const base = WebpackNormalModule.prototype.source.apply(this, arguments);
+
+        // if has only single use inline it at mainTemplate.plugin("modules")
+        if (this.shouldInline()) {
+            this._deferredSource = base;
+
+            return '/* inlined */';
+        }
+
+        // if has multiple uses store it as individual module
+        return new WebpackSources.ConcatSource(
+            new WebpackSources.RawSource('module.exports = '),
+            base
+        );
     }
 }
 
